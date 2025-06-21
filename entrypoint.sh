@@ -1,12 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 cd /home/container
 
-# Replace {{VARIABLE}} with ${VARIABLE}
+# Expand {{VAR}} to ${VAR}
 MODIFIED_STARTUP=$(echo "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')
 
-# Run the modified startup command
-eval ${MODIFIED_STARTUP}
-
-Line endings: LF
-
-
+# Run the server
+exec $MODIFIED_STARTUP
