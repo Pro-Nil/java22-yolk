@@ -9,4 +9,5 @@ WORKDIR /home/container
 
 COPY --chmod=755 entrypoint.sh /entrypoint.sh
 
-ENTRYPOINT ["/entrypoint.sh"]
+# Use CMD to allow Pterodactyl to run it
+CMD ["/entrypoint.sh"]
