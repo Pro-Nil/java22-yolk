@@ -35,5 +35,6 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ghcr.io/pro-nil/yolks:java_${{ matrix.tag }}
+          tags: ghcr.io/${{ github.actor.lowercase() }}/yolks:java_${{ matrix.tag }}
+
 
