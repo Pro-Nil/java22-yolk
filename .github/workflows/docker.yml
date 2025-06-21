@@ -26,5 +26,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
+          platforms: linux/amd64
           push: true
           tags: ghcr.io/pro-nil/java22-yolk:latest
+
