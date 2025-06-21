@@ -1,13 +1,17 @@
-FROM eclipse-temurin:22-jdk
+FROM        --platform=$TARGETOS/$TARGETARCH eclipse-temurin:22-jdk
 
-RUN apt update && apt install -y curl git unzip nano
+LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
-RUN useradd -m container
-USER container
-ENV HOME /home/container
-WORKDIR /home/container
+LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
+LABEL       org.opencontainers.image.licenses=MIT
 
-COPY --chmod=755 entrypoint.sh /entrypoint.sh
+RUN 				apt-get update -y \
+						&& apt-get install -y lsof curl ca-certificates openssl git tar sqlite3 fontconfig libfreetype6 tzdata iproute2 libstdc++6 \
+						&& useradd -d /home/container -m container
 
-# Use CMD to allow Pterodactyl to run it
-CMD ["/entrypoint.sh"]
+USER        container
+ENV         USER=container HOME=/home/container
+WORKDIR     /home/container
+
+COPY        ./../entrypoint.sh /entrypoint.sh
+CMD         [ "/bin/bash", "/entrypoint.sh" ]
