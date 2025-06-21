@@ -35,5 +35,5 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/yolks:java_${{ matrix.tag }}
+          tags: ghcr.io/pro-nil/yolks:java_${{ matrix.tag }}
 
