@@ -3,7 +3,7 @@ export TZ
 
 # Set environment variable that holds the Internal Docker IP
 INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
-export INTERNAL_I
+export INTERNAL_IP
 
 # Switch to the container's working directory
 cd /home/container || exit 1
