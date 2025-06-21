@@ -35,4 +35,5 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ghcr.io/pro-nil/java22-yolk:latest
+          tags: ghcr.io/${{ github.repository_owner }}/yolks:java_${{ matrix.tag }}
+
