@@ -7,4 +7,7 @@ USER container
 ENV HOME /home/container
 WORKDIR /home/container
 
-CMD ["java", "-jar", "server.jar", "nogui"]
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
