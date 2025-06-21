@@ -1,33 +1,33 @@
 name: Build and Push Java 22 Yolk
 
 on:
-
-
-
   push:
     branches: [ main ]
 
-
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
     permissions:
       packages: write
       contents: read
 
-
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+
+      - name: Set lowercase username
+        run: echo "actor_lc=${GITHUB_ACTOR,,}" >> $GITHUB_ENV
+
+      - name: Set up QEMU (for ARM emulation)
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: network=host
 
       - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v2
-
-
-
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -37,6 +37,6 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          platforms: linux/arm64
+          platforms: linux/amd64,linux/arm64
           push: true
-          tags: ghcr.io/pro-nil/java22-yolk:latest
+          tags: ghcr.io/${{ env.actor_lc }}/java22-yolk:latest
